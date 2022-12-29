@@ -1,0 +1,35 @@
+version: "3.8"
+
+services:
+  angular:
+    build:
+      context: ./angular_221229
+      dockerfile: ./Dockerfile
+    volumes:
+      - ./angular_221229:/angular
+      - /angular/node_modules
+    restart: always
+    command: ng serve --host 0.0.0.0 --poll=500
+    container_name: angular
+
+  django:
+    build:
+      context: ./django_221229
+      dockerfile: ./Dockerfile
+    volumes:
+      - ./django_221229:/django
+    restart: always
+    command: python manage.py runserver 0.0.0.0:8000
+    container_name: django
+
+  nginx:
+    image: nginx:1.22.0-alpine
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+    ports:
+      - 80:80
+    depends_on:
+      - angular
+      - django
+    restart: always
+    container_name: nginx
