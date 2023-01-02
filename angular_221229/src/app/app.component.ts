@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
-import { Observable } from 'rxjs';
+import { User } from './data-class/user';
 
 @Component({
   selector: 'app-root',
@@ -9,25 +10,9 @@ import { Observable } from 'rxjs';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
-  title = 'angular_221229';
+  title = 'App Component';
 
-  constructor(private http: HttpClient) {}
+  constructor() {}
 
   ngOnInit(): void {}
-
-  onClick(): void {
-    this.reqeust_login().subscribe(
-      (response: any) => (this.title = response.message),
-      (error) => (this.title = error.error.message)
-    );
-  }
-
-  reqeust_login<T>(): Observable<T> {
-    let request_data = {
-      username: 'admin',
-      password: '0000',
-    };
-
-    return this.http.post<T>('api/user/login', request_data);
-  }
 }
