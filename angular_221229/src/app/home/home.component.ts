@@ -1,7 +1,6 @@
-import { Component, Input } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Component, SkipSelf } from '@angular/core';
 import { Router } from '@angular/router';
-import { User } from '../data-class/user';
+import { AppService } from '../service/app.service';
 
 @Component({
   selector: 'app-home',
@@ -9,16 +8,21 @@ import { User } from '../data-class/user';
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent {
-  @Input() user: User = new User(this.http);
   username = 'admin';
   password = '0000';
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(
+    @SkipSelf() public appService: AppService,
+    private router: Router
+  ) {}
 
   onClick(): void {
-    this.user.login(this.username, this.password).subscribe(
-      (response) => this.router.navigate(['/user']),
-      (error) => console.log(error)
+    this.appService.login(this.username, this.password).subscribe(
+      (response) => {
+        console.log(response);
+      },
+      (error) => console.log(error),
+      () => this.router.navigate(['/user'])
     );
   }
 }

@@ -1,18 +1,17 @@
-import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { Component, OnInit, Self } from '@angular/core';
 
-import { User } from './data-class/user';
+import { AppService } from './service/app.service';
 
 @Component({
   selector: 'app-root',
+  providers: [AppService],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
   title = 'App Component';
 
-  constructor() {}
+  constructor(@Self() public appServic: AppService) {}
 
   ngOnInit(): void {}
 }

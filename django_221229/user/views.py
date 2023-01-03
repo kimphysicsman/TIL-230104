@@ -13,8 +13,9 @@ class UserView(APIView):
         user = auth.authenticate(**request.data)
 
         if not user:
-            auth.login(request, user)
-
+            return Response({"message": "로그인 실패"}, status=status.HTTP_400_BAD_REQUEST)
+        
+        auth.login(request, user)
         return Response({"message": "로그인 완료"}, status=status.HTTP_200_OK)
 
 class UserCRUDView(APIView):
