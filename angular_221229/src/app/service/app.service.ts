@@ -12,7 +12,6 @@ export class AppService {
 
   constructor(private http: HttpClient) {
     this.user = new User();
-    this.get_user();
   }
 
   set_user(): void {

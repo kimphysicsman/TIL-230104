@@ -19,7 +19,7 @@ export class HomeComponent {
   onClick(): void {
     this.appService.login(this.username, this.password).subscribe(
       (response) => {
-        console.log(response);
+        this.appService.set_user();
       },
       (error) => console.log(error),
       () => this.router.navigate(['/user'])

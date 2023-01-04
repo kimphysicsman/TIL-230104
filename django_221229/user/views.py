@@ -21,6 +21,8 @@ class UserView(APIView):
 class UserCRUDView(APIView):
     def get(self, request):
         user = request.user
+        print("user :", user)
+        print("request :", request)
 
         user_data = UserModelSerializer(user).data
         return Response(user_data, status=status.HTTP_200_OK)
